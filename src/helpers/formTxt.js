@@ -1,5 +1,6 @@
 const formCP = {
     empresatxt:         'Empresa',
+    ciftxt:             'CIF',
     nombretxt:          'Nombre',
     apellido1txt:       'Primer Apellido',
     apellido2txt:       'Segundo Apellido',

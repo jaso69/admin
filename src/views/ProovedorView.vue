@@ -3,18 +3,16 @@
 </script>
 
 <template>
-  
   <ClientProo 
-    title="Clientes"
-    boton="Alta Cliente"
-    url="/clientes/altas"/>
+    title="Proovedores"
+    boton="Alta Proovedor"
+    url="/proovedores/altas"/>
 </template>
 
 <script>
 export default {
   created(){
     this.$store.state.ruta = this.$route.name
-    //console.log( this.$store.state.ruta )
   }
 }
 </script>

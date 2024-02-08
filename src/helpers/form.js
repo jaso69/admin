@@ -1,4 +1,6 @@
 const form_data = {
+    empresa: '',
+    cif: '',
     nombre: '',
     apellido1: '',
     apellido2: '',
