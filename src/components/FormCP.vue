@@ -99,6 +99,8 @@
     import form_data from '../helpers/form.js';
     import nuevoCliente from '../helpers/api/clientNuevo'
     import proovedorNuevo from '../helpers/api/proovedorNuevo'
+    import clienteUpdate from '../helpers/api/clientUpdate'
+    import proovedorUpdate from '../helpers/api/proovedorUpdate'
 
     const { empresatxt, ciftxt,nombretxt, apellido1txt, apellido2txt, mailtxt, telefono1txt, telefono2txt, direcciontxt, ciudadtxt, provinciatxt, codigoPostaltxt, botonGuardartxt, botonCancelartxt, botonEditartxt, botonEliminartxt} = formCP
     export default {
@@ -108,8 +110,8 @@
       },
       created(){
         if (this.boton) {
-          this.botones = true;
-          this.form_data = {...this.cliente}
+            this.botones = true;
+            this.form_data = {...this.cliente}
         }
         if(this.$route.name === 'proovedoresAltas' || this.$route.name === 'clientes') this.eliminarBoton = false
       },
@@ -132,32 +134,51 @@
             let resp;
             this.add = false
 
-            if(this.$store.state.ruta === 'home') {
-              const data = await nuevoCliente(this.form_data);
-              resp = await data.json();
-            }
+            if(this.$store.state.ruta === 'home') {resp = await this.guardarClientes(); return}
 
-            if(this.$store.state.ruta === 'proovedores') {
-              const data = await proovedorNuevo(this.form_data);
-              resp =await data.json()
-            }
+            if(this.$store.state.ruta === 'proovedores') {resp = await this.guardarProovedores(); return}
 
-            if(resp.msg === 'success') this.add = true
-            
-            if (!this.add) alert('Error al guardar los datos')
-            
+            this.goBack(resp);
             this.$router.back()
           },
+
+          async guardarClientes(){
+            let resp
+            const data = await nuevoCliente(this.form_data);
+            resp = await data.json();
+            return resp
+          },
+
+          async guardarProovedores(){
+            let resp
+            const data = await proovedorNuevo(this.form_data);
+            resp = await data.json();
+            return resp
+          },
+
           editar(){
             this.botones = false;
             this.editarBoton = true;
           },
+
           cancelar(){
             if(this.$route.name === 'proovedoresAltas' || this.$route.name === 'clientes') this.$router.back()
             this.botones = true;
           },
-          guardarEditar(){
-            //TODO: check
+
+          async guardarEditar(){
+            let resp;
+            let data;
+            if(this.$store.state.ruta === 'home'){ data = await clienteUpdate(this.form_data);}
+            if(this.$store.state.ruta === 'proovedores'){ data = await proovedorUpdate(this.form_data);}
+            resp = await data.json();
+            this.goBack(resp)
+          },
+
+          async goBack(resp){
+            if(resp.msg === 'success') this.add = true          
+            if (!this.add) alert('Error al guardar los datos')
+            this.botones = true
           }
         }
     }
