@@ -21,7 +21,7 @@ import IconNew from '@/components/icons/IconNew.vue';
   </section>
   <section class="flex flex-wrap gap-40 justify-center">
     <div v-for="cliente in clientesTodos" :key=cliente._id>
-      <FormCP boton="edit" :cliente=cliente  class="bg-blue-950 rounded-none w-96"/>
+      <FormCP boton="edit" :cliente=cliente @refresh="refreshPage()"  class="bg-blue-950 rounded-none w-96"/>
     </div>
   </section>
 </template>
@@ -37,13 +37,8 @@ import IconNew from '@/components/icons/IconNew.vue';
     boton: String,
     url: String,
   },
-  async created(){
-    if (this.title === 'Clientes'){
-      this.clientesTodos = await clientes()
-    }
-    if (this.title === 'Proovedores'){
-      this.clientesTodos = await proovedores()
-    }
+  created(){
+    this.getElements()
   },
   data() {
     return {
@@ -53,6 +48,11 @@ import IconNew from '@/components/icons/IconNew.vue';
   },
 
   methods: {
+
+    async getElements(){
+      if (this.title === 'Clientes'){ this.clientesTodos = await clientes()}
+      if (this.title === 'Proovedores'){ this.clientesTodos = await proovedores()}
+    },
    
     async buscar(){
         this.clientesTodos = await clientes()
@@ -60,6 +60,10 @@ import IconNew from '@/components/icons/IconNew.vue';
         const busqueda = clienteSearch(this.clientesTodos, this.temp)
         this.clientesTodos = busqueda
       }
+    },
+    
+    refreshPage(){
+      this.getElements()
     }
   },
   watch: {

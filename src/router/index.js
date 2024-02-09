@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ClienteViewVue from '@/views/ClienteView.vue'
 import ProovedorView from '../views/ProovedorView.vue'
 import ProovedorAltaView from '../views/ProovedorAltaView.vue'
+import MaterialesView from '@/views/MaterialesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/proovedores/altas',
       name: 'proovedoresAltas',
       component: ProovedorAltaView
+    },
+    {
+      path: '/materiales',
+      name: 'materiales',
+      component: MaterialesView
     },
   ]
 })
