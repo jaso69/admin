@@ -23,6 +23,8 @@
 <script>
     import matConfig from '../helpers/materialesConfig'
     import materialesTodos from '../helpers/api/materialesTodos'
+    import materialSearch from '@/helpers/searchs/materialSearch';
+
     export default {
         created(){
             this.getMateriales()
@@ -32,15 +34,29 @@
                 materiales: [],
                 ...matConfig,
                 pathAltas: '/materiales/altas',
+                temp: '',
             }
         },
         methods: {
             async getMateriales(){
                 this.materiales = await materialesTodos();
             },
+            async buscar(){
+                await this.getMateriales()
+                if(this.temp){
+                    const busqueda = materialSearch(this.materiales, this.temp)
+                    this.materiales = busqueda
+                }
+    },
             refreshPage(){
                 this.getMateriales()
             }
-        } 
+        },
+        watch: {
+            temp: function (value) {
+                this.temp = value
+                this.buscar()
+            }
+        }      
     }
 </script>

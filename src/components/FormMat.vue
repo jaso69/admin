@@ -41,9 +41,9 @@
                     </label>
                     <input :disabled="botones" v-model="matData.precioVenta" class="appearance-none block w-24 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:border-cyan-400" placeholder="3">
                 </div>
-                <div v-if="modalEliminar" class="bg-slate-400 rounded-full border-red-500 border-4 p-2">
-                    <div class="card text-center">
-                        <h5 class="flex items-center justify-center text-zinc-800 font-bold"><IconBorrar />!!!! BORRAR !!!!<IconBorrar /></h5>
+                <div v-if="modalEliminar" class="bg-slate-400 rounded-full border-red-500 border-4 p-">
+                    <div class="card text-center p-6">
+                        <h5 class="flex items-center justify-center text-zinc-800 font-bold"><IconBorrar />BORRAR !!<IconBorrar /></h5>
                         <h5 class="text-red-600 text-2xl font-bold">{{ matData.codigo }}</h5>
                         <p class="text-zinc-800">Estas seguro?</p>
                         <div class="flex justify-around">
@@ -69,7 +69,7 @@ import materialNuevo from '@/helpers/api/materialNuevo'
 import materialUpdate from '@/helpers/api/materialesUpdate'
 import proovedores from '../helpers/api/proovedorTodos.js'
 import materialBorrar from '@/helpers/api/materialBorrar'
-
+import IconBorrar from "@/components/icons/IconBorrar.vue";
 export default {
     props:{
         material: [],
@@ -92,7 +92,6 @@ export default {
     methods:{
         async init(){
             if(this.material){
-                console.log(this.material.proovedor[0].nombre)
                 this.proovedorSel = this.material.proovedor[0].nombre
                 this.matData = {...this.material}
                 this.botones = true
@@ -154,5 +153,6 @@ export default {
             this.$emit('refresh');
         },
     },
+    components: { IconBorrar }
 }
 </script>
