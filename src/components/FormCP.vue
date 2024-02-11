@@ -118,7 +118,6 @@
     import clienteBorrar from '../helpers/api/clientBorrar'
     import proovedorBorrar from '../helpers/api/proovedorBorrar'
 
-    const { empresatxt, ciftxt,nombretxt, apellido1txt, apellido2txt, mailtxt, telefono1txt, telefono2txt, direcciontxt, ciudadtxt, provinciatxt, codigoPostaltxt, botonGuardartxt, botonCancelartxt, botonEditartxt, botonEliminartxt} = formCP
     export default {
     props: {
         boton: String,
@@ -134,7 +133,7 @@
     },
     data() {
         return {
-            empresatxt, ciftxt, nombretxt, apellido1txt, apellido2txt, mailtxt, telefono1txt, telefono2txt, direcciontxt, ciudadtxt, provinciatxt, codigoPostaltxt, botonGuardartxt, botonCancelartxt, botonEditartxt, botonEliminartxt,
+            ...formCP, 
             form_data,
             botones: false,
             enabled: 'disabled',
@@ -152,11 +151,9 @@
             this.add = false;
             if (this.$store.state.ruta === 'home') {
                 resp = await this.guardarClientes();
-                return;
             }
             if (this.$store.state.ruta === 'proovedores') {
                 resp = await this.guardarProovedores();
-                return;
             }
             this.goBack(resp);
             this.$router.back();

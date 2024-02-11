@@ -5,10 +5,8 @@ import IconNew from '@/components/icons/IconNew.vue';
 </script>
 
 <template>
-  <section>
+  <section class="flex items-center justify-around mt-4">
     <h1 class="text-white mt-4 text-center text-5xl font-bold p-2">{{ title }}</h1>
-  </section>
-  <section class="mt-6">    
     <RouterLink :to=url>
       <button class="text-white bg-[#09f] hover:text-white hover:bg-green-700 activate:translate-y-1 justify-center rounded-full flex mx-auto p-2"><IconNew  /><p class="p-3">{{ boton }}</p></button>
     </RouterLink>
